@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt' // This is needed for the dagger
+apply from: 'versioning.gradle'
+
+
+// This is needed for the dagger
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    }
+}
+
+/**
+ * Define project specific variables
+ */
+project.ext.appName = "FragmentNavigationPatternDemo";
+project.ext.versionName = "1.0"
+
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.exarlabs.android.myrules.myrules"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 2
+        versionName project.versionName
+
+        // configure some project specific fields
+        buildConfigField project.INT, project.BUILD_NUMBER, ("" + project.buildNumber)
+        buildConfigField project.STRING, project.BUILD_TIME, project.buildTime
+        buildConfigField project.BOOLEAN, project.HAS_BUILD_NUMBER, ("" + project.hasBuildNumber)
+        buildConfigField project.STRING, project.USERNAME, ("\"" + java.lang.System.getenv('USERNAME') + "\"")
+        buildConfigField project.STRING, project.COMPUTERNAME, ("\"" + java.lang.System.getenv('COMPUTERNAME') + "\"")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // This is needed for the dagger
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+
+
+    // Tools - Dependency Injection
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.google.dagger:dagger-compiler:2.0.1'
+    compile 'com.google.dagger:dagger:2.0.1'
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    //Rx
+    compile 'io.reactivex:rxandroid:1.0.1'
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    compile 'io.reactivex:rxjava:1.0.16'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
+
+    // UI libs
+    compile 'com.norbsoft.typefacehelper:library:0.9.0'
+    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.0'
+    compile 'com.mikepenz:octicons-typeface:3.0.0.1@aar'
+    compile 'com.mikepenz:fontawesome-typeface:4.4.0.1@aar'
+    compile 'com.mikepenz:iconics-core:1.7.9@aar'
+    compile('com.mikepenz:materialdrawer:4.3.8@aar') {
+        transitive = true
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
+    // Development / Analytics
+    compile 'com.facebook.stetho:stetho:1.2.0'
+}

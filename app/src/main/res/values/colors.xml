@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- base colors -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- base colors -->
+    <color name="text_primary">@color/md_grey_900</color>
+    <color name="devel_data">#DCEDC8</color>
+
+
+    <color name="background">@color/md_grey_100</color>
+
+    <!-- Drawer menu item color -->
+
+    <color name="menu_item_selected">@color/md_grey_200</color>
+    <color name="menu_item_selected_text">@color/text_primary</color>
+
+
+    <color name="menu_item_1">@color/md_green_700</color>
+    <color name="menu_item_2">@color/md_yellow_700</color>
+    <color name="menu_item_3">@color/md_cyan_700</color>
+    <color name="menu_item_4">@color/md_orange_700</color>
+    <color name="menu_item_5">@color/md_brown_700</color>
+</resources>

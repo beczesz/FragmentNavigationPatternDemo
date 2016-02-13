@@ -1,0 +1,89 @@
+// ------------------------------------------------------------------------
+// VERSIONING
+// ------------------------------------------------------------------------
+
+
+project.ext.versionName = "1.0"
+project.ext.versionCode = 1
+project.ext.minSdkVersion = 15
+project.ext.targetSdkVersion = 23
+project.ext.compileSdkVersion = 23
+
+// ------------------------------------------------------------------------
+// PROPERTIES -> TYPES
+// ------------------------------------------------------------------------
+
+project.ext.STRING = "String"
+project.ext.BOOLEAN = "boolean"
+project.ext.INT = "int"
+
+// ------------------------------------------------------------------------
+// UTILITY METHODS
+// ------------------------------------------------------------------------
+/**
+ * Wraps the String with ""
+ */
+def wrapQuotes = { String value ->
+    return "\"" + value + "\""
+}
+
+/**
+ * Pretty prints the key / value pairs of the given map prefixing with the prefix
+ * @param prefix the prefix
+ * @param map the map with key/value pairs
+ */
+def printMap = { String prefix, Map<String, ?> map ->
+    for (String key : map.keySet()) {
+        println("    " + prefix + ": " + key + " --> " + map.get(key))
+    }
+}
+
+def printProperties = { ->
+    printMap("P", project.properties)
+}
+
+def printEnvVariables = { ->
+    printMap("E", System.getenv())
+}
+
+// ------------------------------------------------------------------------
+// BUILD NUMBER
+// To define the build number use in the build.gradle
+// android.defaultConfig {
+//     buildConfigField project.STRING, project.BUILD_NUMBER, project.buildNumber
+// }
+// ------------------------------------------------------------------------
+// This property can be used from console as paramater
+// as gradle build -PbuildNumber=999
+def BUILD_NUMBER_PROPERTY = "buildNumber"
+
+
+def getBuildNumber = { ->
+    return project.hasProperty(BUILD_NUMBER_PROPERTY) ? buildNumber : "-1"
+}
+
+def hasBuildNumber = { ->
+    return project.hasProperty(BUILD_NUMBER_PROPERTY)
+}
+
+def getBuildTime = { ->
+    return wrapQuotes(new Date().format('yyyy.MM.dd hh:mm:ss'))
+}
+
+// ------------------------------------------------------------------------
+// EXPOSED EXTRAS
+// ------------------------------------------------------------------------
+project.ext.hasBuildNumber = hasBuildNumber()
+project.ext.BUILD_NUMBER = "BUILD_NUMBER"
+project.ext.HAS_BUILD_NUMBER = "HAS_BUILD_NUMBER"
+project.ext.BUILD_TIME = "BUILD_TIME"
+project.ext.USERNAME = "USERNAME"
+project.ext.COMPUTERNAME = "COMPUTERNAME"
+
+project.ext.buildNumberWithQuotes = wrapQuotes(getBuildNumber())
+project.ext.buildNumber = getBuildNumber()
+project.ext.buildTime = getBuildTime()
+
+
+
+

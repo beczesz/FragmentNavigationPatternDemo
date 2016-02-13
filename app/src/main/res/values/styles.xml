@@ -1,0 +1,19 @@
+<resources>
+
+    <style name="TextView">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divider_height</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="DevelInfo" parent="TextView">
+        <item name="android:background">@color/devel_data</item>
+        <item name="android:padding">@dimen/padding_tiny</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+</resources>
