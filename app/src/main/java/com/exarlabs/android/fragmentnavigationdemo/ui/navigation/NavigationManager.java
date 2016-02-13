@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.exarlabs.android.fragmentnavigationdemo.ui.R;
 import com.exarlabs.android.fragmentnavigationdemo.ui.module1.Module1Fragment;
+import com.exarlabs.android.fragmentnavigationdemo.ui.module1.Module1InternalFragment;
 import com.exarlabs.android.fragmentnavigationdemo.ui.module2.Module2Fragment;
 import com.exarlabs.android.fragmentnavigationdemo.ui.module3.Module3Fragment;
 import com.exarlabs.android.fragmentnavigationdemo.ui.module4.Module4Fragment;
@@ -22,6 +23,19 @@ public class NavigationManager {
     // TYPES
     // ------------------------------------------------------------------------
 
+
+    /**
+     * Listener interface for navigation events.
+     */
+    public interface NavigationListener {
+
+        /**
+         * Callback on backstack changed.
+         */
+        void onBackstackChanged();
+    }
+
+
     // ------------------------------------------------------------------------
     // STATIC FIELDS
     // ------------------------------------------------------------------------
@@ -35,6 +49,9 @@ public class NavigationManager {
     // ------------------------------------------------------------------------
 
     private FragmentManager mFragmentManager;
+
+    private NavigationListener mNavigationListener;
+
 
     // ------------------------------------------------------------------------
     // CONSTRUCTORS
@@ -52,6 +69,14 @@ public class NavigationManager {
      */
     public void init(FragmentManager fragmentManager) {
         mFragmentManager = fragmentManager;
+        mFragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (mNavigationListener != null) {
+                    mNavigationListener.onBackstackChanged();
+                }
+            }
+        });
     }
 
     /**
@@ -141,6 +166,26 @@ public class NavigationManager {
         openAsRoot(fragment);
     }
 
+    public void startInternalModule() {
+        Fragment fragment = Module1InternalFragment.newInstance();
+        open(fragment);
+    }
+
+
+    /**
+     * @return true if the current fragment displayed is a root fragment
+     */
+    public boolean isRootFragmentVisible() {
+        return mFragmentManager.getBackStackEntryCount() <= 1;
+    }
+
+    public NavigationListener getNavigationListener() {
+        return mNavigationListener;
+    }
+
+    public void setNavigationListener(NavigationListener navigationListener) {
+        mNavigationListener = navigationListener;
+    }
 
     // ------------------------------------------------------------------------
     // GETTERS / SETTTERS

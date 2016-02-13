@@ -5,6 +5,7 @@ import com.exarlabs.android.fragmentnavigationdemo.ui.BaseActivity;
 import com.exarlabs.android.fragmentnavigationdemo.ui.MainActivity;
 import com.exarlabs.android.fragmentnavigationdemo.ui.SampleFragment;
 import com.exarlabs.android.fragmentnavigationdemo.ui.module1.Module1Fragment;
+import com.exarlabs.android.fragmentnavigationdemo.ui.module1.Module1InternalFragment;
 import com.exarlabs.android.fragmentnavigationdemo.ui.module2.Module2Fragment;
 import com.exarlabs.android.fragmentnavigationdemo.ui.drawer.DrawerManager;
 import com.exarlabs.android.fragmentnavigationdemo.ui.module5.Module5Fragment;
@@ -37,4 +38,6 @@ public interface DaggerComponentGraph {
     void inject(Module1Fragment actionsOverviewFragment);
 
     void inject(Module4Fragment historyListFragment);
+
+    void inject(Module1InternalFragment module1InternalFragment);
 }

@@ -16,7 +16,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 /**
  * Main activity which holds the container for the fragment navigation.
  */
-public class MainActivity extends BaseActivity implements Drawer.OnDrawerItemClickListener {
+public class MainActivity extends BaseActivity implements Drawer.OnDrawerItemClickListener, NavigationManager.NavigationListener {
 
 
     // ------------------------------------------------------------------------
@@ -59,6 +59,7 @@ public class MainActivity extends BaseActivity implements Drawer.OnDrawerItemCli
 
         // Initialize the NavigationManager with this activity's FragmentManager
         mNavigationManager.init(getSupportFragmentManager());
+        mNavigationManager.setNavigationListener(this);
 
         // start as the first screen the rules overview
         mNavigationManager.startMenu1();
@@ -112,6 +113,14 @@ public class MainActivity extends BaseActivity implements Drawer.OnDrawerItemCli
                         }).setNegativeButton(android.R.string.cancel, null);
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    @Override
+    public void onBackstackChanged() {
+        // check if we display a root fragment and enable drawer only on root fragments
+        boolean rootFragment = mNavigationManager.isRootFragmentVisible();
+        mDrawerManager.enableDrawer(rootFragment);
+        mDrawerManager.enableActionBarDrawerToggle(rootFragment);
     }
 
 

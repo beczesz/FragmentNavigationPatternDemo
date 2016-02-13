@@ -1,7 +1,5 @@
 package com.exarlabs.android.fragmentnavigationdemo.ui.module1;
 
-import javax.inject.Inject;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,15 +9,12 @@ import android.view.ViewGroup;
 import com.exarlabs.android.fragmentnavigationdemo.business.dagger.DaggerManager;
 import com.exarlabs.android.fragmentnavigationdemo.ui.BaseFragment;
 import com.exarlabs.android.fragmentnavigationdemo.ui.R;
-import com.exarlabs.android.fragmentnavigationdemo.ui.navigation.NavigationManager;
-
-import butterknife.OnClick;
 
 /**
  * Example Fragment
  * Created by becze on 11/25/2015.
  */
-public class Module1Fragment extends BaseFragment {
+public class Module1InternalFragment extends BaseFragment {
 
     // ------------------------------------------------------------------------
     // TYPES
@@ -29,7 +24,7 @@ public class Module1Fragment extends BaseFragment {
     // STATIC FIELDS
     // ------------------------------------------------------------------------
 
-    private static final String TAG = Module1Fragment.class.getSimpleName();
+    private static final String TAG = Module1InternalFragment.class.getSimpleName();
 
     // ------------------------------------------------------------------------
     // STATIC METHODS
@@ -38,17 +33,14 @@ public class Module1Fragment extends BaseFragment {
     /**
      * @return newInstance of SampleFragment
      */
-    public static Module1Fragment newInstance() {
-        return new Module1Fragment();
+    public static Module1InternalFragment newInstance() {
+        return new Module1InternalFragment();
     }
 
     // ------------------------------------------------------------------------
     // FIELDS
     // ------------------------------------------------------------------------
     private View mRootView;
-
-    @Inject
-    NavigationManager mNavigationManager;
 
     // ------------------------------------------------------------------------
     // CONSTRUCTORS
@@ -68,14 +60,9 @@ public class Module1Fragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (mRootView == null) {
-            mRootView = inflater.inflate(R.layout.module1_layout, null);
+            mRootView = inflater.inflate(R.layout.internal_layout, null);
         }
         return mRootView;
-    }
-
-    @OnClick(R.id.internal_module_button)
-    void navigate() {
-        mNavigationManager.startInternalModule();
     }
 
     // ------------------------------------------------------------------------
